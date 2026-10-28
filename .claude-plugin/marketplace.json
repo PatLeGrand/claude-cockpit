@@ -1,0 +1,5 @@
+{
+  "name": "claude-cockpit",
+  "owner": { "name": "PatLeGrand" },
+  "plugins": [{ "name": "cockpit", "source": "./" }]
+}

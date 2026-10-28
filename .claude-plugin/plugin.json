@@ -1,0 +1,11 @@
+{
+  "name": "cockpit",
+  "version": "0.1.0",
+  "description": "Jauge de contexte au-dessus du prompt, panneau de bord de session, statut des outils et alertes",
+  "types": "./types/index.d.ts",
+  "author": {
+    "name": "PatLeGrand"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/PatLeGrand/claude-cockpit"
+}
