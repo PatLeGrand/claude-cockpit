@@ -184,3 +184,36 @@ test('Sol lancé en fond par delegate.mjs est suivi jusqu\'à sa notification de
   expect((await after.find({ type: 'Text', text: /agent/ })) === undefined).toBe(true)
   await after.unmount()
 })
+
+test('les appels Nay sont suivis : run nomme l\'agent, story s\'affiche comme nay', async ($, on) => {
+  stubs(on)
+  on('clock.now', () => ({ value: 1000 }))
+  on('clock.every', () => ({ value: undefined }))
+  on('ui.status', () => ({ value: undefined }))
+  await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
+
+  await $.tool.call({
+    tool: 'Bash',
+    command: 'node /p/nay-delegation/bin/nay.js run terra /tmp/revue.md --read-only --role relecteur',
+    description: 'Revue par Terra',
+    run_in_background: true,
+  } as never)
+  await $.tool.call({
+    tool: 'Bash',
+    command: 'node /p/nay-delegation/bin/nay.js story /tmp/brief.md --cwd /p/nay-delegation --feature ui',
+    description: 'Refonte UI via nay story',
+    run_in_background: true,
+  } as never)
+
+  const pane = await $.ui.mount({
+    plugin: 'cockpit',
+    component: 'Pane',
+    requestId: 'cockpit',
+    surface: 'desktop',
+    props: { title: 'Cockpit', isFocused: false, bodyColumns: 50, placement: 'dock', scroll: { offset: 0, bodyRows: 40 }, view: {} },
+  } as never)
+  expect((await pane.find({ type: 'Text', text: /^terra$/ })) !== undefined).toBe(true)
+  expect((await pane.find({ type: 'Text', text: /^nay$/ })) !== undefined).toBe(true)
+  expect((await pane.find({ type: 'Text', text: /Refonte UI via nay story/ })) !== undefined).toBe(true)
+  await pane.unmount()
+})

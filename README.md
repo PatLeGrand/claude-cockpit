@@ -26,6 +26,7 @@ Un mod Claude Code qui affiche l'état de ta session sans quitter la conversatio
 
 - Les sous-agents Claude (outil Agent), y compris ceux lancés en arrière-plan.
 - Les agents externes lancés par le terminal : `sol`, `luna`, `gemini`, `codex`, `agy`, directement, via un script `scripts/<nom>.sh` ou via `delegate.mjs <nom>`.
+- Les appels du moteur Nay : `nay run <agent>` sous le nom de l'agent, `nay story` et `nay resume` sous le nom « nay ».
 - Les outils MCP qui portent l'un de ces noms.
 - Un message à la fin de chaque agent, et une notification système s'il a duré plus d'une minute.
 

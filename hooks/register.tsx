@@ -30,6 +30,9 @@ const agents = atom({ plugin: 'cockpit', key: 'agents' } as const, [] as Agent[]
 
 const DELEGATE_NAMES = 'sol|luna|gemini|codex|agy'
 const DELEGATES = [
+  // Moteur Nay : `nay run <agent>` nomme l'agent ; `story` et `resume` le choisissent eux-mêmes.
+  /\bnay(?:\.js)?\s+run\s+([\w-]+)/i,
+  /\b(nay)(?:\.js)?\s+(?:story|resume)\b/i,
   new RegExp(`delegate\\.m?js\\s+(${DELEGATE_NAMES})\\b`, 'i'),
   new RegExp(`scripts/(${DELEGATE_NAMES})\\.sh\\b`, 'i'),
   new RegExp(`(?:^|[;&|(]\\s*)(?:\\S+=\\S+\\s+)*(${DELEGATE_NAMES})(?:\\.sh)?(?=\\s|$)`, 'i'),
